@@ -4,10 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dog Explorer</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+
 </head>
 <body>
+    <header>
+        <h1> Dog Explorer</h1>
+        <p>Discover adorable dogs and fascinating facts!</p>
+    </header>
 
-    <script src="main.js"></script> 
+    <main>
+        <section class="dog-display">
+            <article class="dog-card">
+                <h2>Random Dog</h2>
+                <div class="image-container">
+                    <img id="dogImage" src="" alt="Random dog" style="display: none;" />
+                    <div id="imageLoading">Loading dog image...</div>
+                </div>
+                <div class="breed-info">
+                    <p id="breedName">Loading breed name...</p>
+                </div>
+            </article>
+
+            <article class="fact-card">
+                <h2>Did You Know?</h2>
+                <div class="fact-container">
+                    <p id="dogFact" style="display: none;"></p>
+                    <div id="factLoading">Loading dog fact...</div>
+                </div>
+            </article>
+        </section>
+
+        <section class="controls">
+            <button id="newDogBtn" class="btn-primary">
+                Get New Dog & Fact
+            </button>
+            <button id="newImageBtn" class="btn-secondary">
+                New Image Only
+            </button>
+            <button id="newFactBtn" class="btn-secondary">
+                New Fact Only
+            </button>
+        </section>
+        
+        <section class="stats">
+            <article class="stat-card">
+                <h3>Dogs Viewed</h3>
+                <p id="dogsViewed" class="stat-number">0</p>
+            </article>
+            <article class="stat-card">
+                <h3>Facts Learned</h3>
+                <p id="factsLearned" class="stat-number">0</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data from Dog CEO API and Dog Facts API</p>
+    </footer>
 </body>
 </html>
