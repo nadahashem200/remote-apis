@@ -52,17 +52,9 @@ window.addEventListener('DOMContentLoaded', function() {
     loadBothDogAndFact();
 });
 
-function loadBothDogAndFact() {} 
-
-function loadDogImage() {
-    dogsViewed++;
-    dogsViewedElement.textContent = dogsViewed;
-    saveStats();
-}
-function loadDogFact() {
-    factsLearned++;
-    factsLearnedElement.textContent = factsLearned;
-    saveStats();
+function loadBothDogAndFact() {
+    loadDogImage();
+    loadDogFact();
 }
 
 async function loadDogImage() {
@@ -103,17 +95,18 @@ async function loadDogImage() {
 async function loadDogFact() {
     setLoadingState('fact', true);
     
-    const url = 'https://dog-api.kinduff.com/api/facts';
+    const url = 'https://dogapi.dog/api/v2/facts';
     const data = await fetchData(url);
-    
-    if (!data || !data.facts || data.facts.length === 0) {
+
+    if (!data || !data.data || data.data.length === 0) {
         dogFact.textContent = "Could not fetch a fact.";
         setLoadingState('fact', false);
         return;
     }
 
-    dogFact.textContent = data.facts[0];
-    
+    const fact = data.data[0].attributes.body; 
+    dogFact.textContent = fact;
+
     factsLearned++;
     factsLearnedElement.textContent = factsLearned;
     saveStats();
