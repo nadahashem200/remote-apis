@@ -46,14 +46,26 @@ function saveStats () {
     localStorage.setItem('factsLearned', factsLearned);
 }
 
-function loadBothDogAndFact() {} 
-function loadDogImage() {}
-function loadDogFact() {}
-
-
+//Application entry point.
 window.addEventListener('DOMContentLoaded', function() {
     loadStats();
     setupButtons();
     loadBothDogAndFact();
 });
+
+function loadBothDogAndFact() {} 
+
+function loadDogImage() {
+    dogsViewed++;
+    dogsViewedElement.textContent = dogsViewed;
+    saveStats();
+}
+function loadDogFact() {
+    factsLearned++;
+    factsLearnedElement.textContent = factsLearned;
+    saveStats();
+}
+
+
+
 
