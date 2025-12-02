@@ -66,6 +66,18 @@ function loadDogFact() {
     saveStats();
 }
 
+function setLoadingState(type, isLoading) {
+   
+    const loadingElement = (type === 'image') ? imageLoading : factLoading;
+    const contentElement = (type === 'image') ? dogImage : dogFact;
 
+    if (isLoading) {
+        loadingElement.style.display = 'block';
+        contentElement.style.display = 'none';
+    } else {
+        loadingElement.style.display = 'none';
+        contentElement.style.display = 'block';
+    }
+}
 
 
