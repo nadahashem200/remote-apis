@@ -35,7 +35,6 @@ function loadStats() {
     }
 } 
 
-
 function setupButtons() {
     newDogBtn.addEventListener('click', loadBothDogAndFact);
     newImageBtn.addEventListener('click', loadDogImage);
@@ -66,6 +65,62 @@ function loadDogFact() {
     saveStats();
 }
 
+async function loadDogImage() {
+    setLoadingState('image', true);
+    
+    const url = 'https://dog.ceo/api/breeds/image/random';
+    const data = await fetchData(url);
+    
+    if (!data || data.status !== 'success') {
+        breedName.textContent = "Error loading image.";
+        setLoadingState('image', false);
+        return;
+    }
+
+    const imgUrl = data.message;
+    const img = new Image(); 
+    
+    img.onload = function() {
+        dogImage.src = imgUrl;
+
+        const breedPath = imgUrl.split('/breeds/')[1].split('/')[0];
+        const breed = breedPath.split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+
+        breedName.textContent = breed;
+
+        dogsViewed++;
+        dogsViewedElement.textContent = dogsViewed;
+        saveStats();
+
+        setLoadingState('image', false);
+    };
+    
+    img.src = imgUrl; 
+}
+
+async function loadDogFact() {
+    setLoadingState('fact', true);
+    
+    const url = 'https://dog-api.kinduff.com/api/facts';
+    const data = await fetchData(url);
+    
+    if (!data || !data.facts || data.facts.length === 0) {
+        dogFact.textContent = "Could not fetch a fact.";
+        setLoadingState('fact', false);
+        return;
+    }
+
+    dogFact.textContent = data.facts[0];
+    
+    factsLearned++;
+    factsLearnedElement.textContent = factsLearned;
+    saveStats();
+    
+    setLoadingState('fact', false);
+}
+
 function setLoadingState(type, isLoading) {
    
     const loadingElement = (type === 'image') ? imageLoading : factLoading;
@@ -80,4 +135,20 @@ function setLoadingState(type, isLoading) {
     }
 }
 
+async function fetchData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+     return await response.json();
+
+    } catch (error) {
+        console.error("Fetch failed:", error);
+        
+        alert("Sorry, a network error occurred. Please check your connection.");
+        
+        return null; 
+    }
+}
 
