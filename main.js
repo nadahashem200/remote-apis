@@ -20,13 +20,35 @@ const newImageBtn = document.getElementById("newImageBtn");
 const newFactBtn = document.getElementById("newFactBtn");
 
 
+function loadStats() {
+    const savedDogs = localStorage.getItem('dogsViewed');
+    const savedFacts = localStorage.getItem('factsLearned');
 
-function loadStats() {} 
-function setupButtons() {} 
+    if (savedDogs) { 
+        dogsViewed = parseInt(savedDogs);
+        dogsViewedElement.textContent = dogsViewed;
+    }
+
+    if (savedFacts) {
+        factsLearned = parseInt(savedFacts);
+        factsLearnedElement.textContent = factsLearned;
+    }
+} 
+
+
+function setupButtons() {
+    newDogBtn.addEventListener('click', loadBothDogAndFact);
+    newImageBtn.addEventListener('click', loadDogImage);
+    newFactBtn.addEventListener('click', loadDogFact);
+} 
+function saveStats () {
+    localStorage.setItem('dogsViewed', dogsViewed);
+    localStorage.setItem('factsLearned', factsLearned);
+}
+
 function loadBothDogAndFact() {} 
 function loadDogImage() {}
 function loadDogFact() {}
-
 
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -34,3 +56,4 @@ window.addEventListener('DOMContentLoaded', function() {
     setupButtons();
     loadBothDogAndFact();
 });
+
